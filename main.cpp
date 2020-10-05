@@ -14,7 +14,7 @@
 #include <iostream>
 #include "Point.h"
 
-
+#define pairStrStr std::pair<std::string, std::string>
 
 #define stop __asm nop
 
@@ -329,22 +329,22 @@ int main(int argc, char* argv[])
 		//...
 	{
 		const char* words[] = { "Abba", "Alfa", "Beta", "Beauty" , "Center", "Carry"};
-		std::map <char, std::set<const char*>> m;
+		std::map <char, std::set<std::string>> m;
 		for (int i = 0; i < sizeof(words) / sizeof(words[0]); i++)
 		{
 			m[words[i][0]].insert(words[i]);
 		}
 
-		for (std::map<char, std::set<const char*>>::const_iterator it = m.cbegin(); it != m.cend(); ++it)
+		for (std::map<char, std::set<std::string>>::const_iterator it = m.cbegin(); it != m.cend(); ++it)
 		{
 			std::cout << it->first << " : ";
-			for (std::set<const char*>::const_iterator it2 = it->second.cbegin(); it2 != it->second.cend(); ++it2)
+			for (std::set<std::string>::const_iterator it2 = it->second.cbegin(); it2 != it->second.cend(); ++it2)
 			{
 				std::cout << *it2 << ' ';
 			}
 			std::cout << '\n';
 		}
-		
+		stop
 	}
 
 
@@ -386,13 +386,14 @@ int main(int argc, char* argv[])
 
 
 	{
+
 		std::multimap<std::string, std::string> m;
-		m.insert(std::pair<std::string, std::string>("strange", "чужой"));
-		m.insert(std::pair<std::string, std::string>("strange", "странный"));
-		m.insert(std::pair<std::string, std::string>("sickness", "болезнь"));
-		m.insert(std::pair<std::string, std::string>("sickness", "тошнота"));
-		m.insert(std::pair < std::string, std::string>("nice", "хороший"));
-		m.insert(std::pair < std::string, std::string>("nice", "вкусный"));
+		m.insert(pairStrStr("strange", "чужой"));
+		m.insert(pairStrStr("strange", "странный"));
+		m.insert(pairStrStr("sickness", "болезнь"));
+		m.insert(pairStrStr("sickness", "тошнота"));
+		m.insert(pairStrStr("nice", "хороший"));
+		m.insert(pairStrStr("nice", "вкусный"));
 
 		for (auto it = m.begin(); it != m.end(); ++it)
 		{
@@ -411,10 +412,6 @@ int main(int argc, char* argv[])
 
 	}
 
-
-
 		stop
-
 		return 0;
 }
-
